@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>暗号入力</title>
+    <style>
+        body {
+            font-family: "Segoe UI", "Yu Gothic", sans-serif;
+            background-color: #111;
+            color: #eee;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        h2 {
+            color: #ff3b3b;
+            font-size: 2em;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ff3b3b;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            width: 250px;
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #ff3b3b;
+            border-radius: 8px;
+            background-color: #222;
+            color: #fff;
+            outline: none;
+            text-align: center;
+        }
+
+            input[type="text"]:focus {
+                box-shadow: 0 0 10px #ff3b3b;
+            }
+
+        button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #ff3b3b;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            button:hover {
+                background-color: #ff6b6b;
+                box-shadow: 0 0 10px #ff3b3b;
+            }
+
+        #result {
+            margin-top: 40px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #00ffcc;
+            text-shadow: 0 0 8px #00ffcc;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>暗号入力</h2>
+    <p>暗号を入力せよ。</p>
+
+    <input type="text" id="answer" placeholder="ここに入力" onkeydown="if(event.key==='Enter') check()">
+    <button onclick="check()">送信</button>
+
+    <div id="result"></div>
+
+    <script>
+        function normalize(str) {
+            return str.trim().toLowerCase().replace(/[\u30a1-\u30f6]/g, ch =>
+                String.fromCharCode(ch.charCodeAt(0) - 0x60)
+            );
+        }
+
+        function check() {
+            const input = normalize(document.getElementById("answer").value);
+            const correct = normalize("かいとう"); // ←答えをここで設定
+
+            if (input === correct) {
+                document.getElementById("result").innerHTML =
+                    "正解だ。次のヒントは『体育館ステージ裏』にある。";
+                document.getElementById("answer").style.display = "none";
+            } else {
+                document.getElementById("result").innerHTML =
+                    "違うようだな。もう一度考えてみるんだ。";
+            }
+        }
+    </script>
+
+</body>
+</html>
+
